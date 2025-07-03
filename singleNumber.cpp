@@ -2,21 +2,22 @@
 #include<vector>
 using namespace std;
 
-class Solution {
+class Solution{
 public:
-    int singleNumber(vector<int>& nums) {
+    int singleNum(vector<int>& nums){
         int result = 0;
-        for(int num : nums) {
-            result ^= num;  // XOR operation
-        }
-        return result;
+        for(int num : nums){
+            result ^= num;    //XOR operation
+        } 
+    return result;
     }
 };
 
-int main() {
+
+int main(){
+    vector<int> nums = {4,1,2,1,2};
+
     Solution sol;
-    vector<int> nums = {4, 1, 2, 1, 2};  // Example input
-    cout << "Single number is: " << sol.singleNumber(nums) << endl;
+    cout<<"The number occuring once is: "<<sol.singleNum(nums)<<endl; 
     return 0;
 }
-`
