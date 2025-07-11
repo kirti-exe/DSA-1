@@ -1,39 +1,30 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include<iostream>
+#include<vector>
 using namespace std;
 
-class Solution {
+class Solution{
 public:
-    int maxArea(vector<int>& height) {
+    int maxArea(vector<int>& height){
         int maxWater = 0;
-        int left = 0;
-        int right = height.size() - 1;
+        int leftpointer = 0, rightpointer = height.size() - 1;
 
-        while (left < right) {
-            int width = right - left;
-            int currentHeight = min(height[left], height[right]);
-            int currentArea = width * currentHeight;
-            maxWater = max(maxWater, currentArea);
+        while(leftpointer < rightpointer){
+            int currWidth = rightpointer - leftpointer;
+            int currHeight = min(height[leftpointer], height[rightpointer]);
+            int currWater = currWidth * currHeight;
+            maxWater = max(maxWater, currWater);
 
-            // Move the shorter line inward
-            if (height[left] < height[right]) {
-                left++;
-            } else {
-                right--;
-            }
+            height[leftpointer] < height[rightpointer] ? leftpointer ++ : rightpointer --;
         }
 
         return maxWater;
     }
 };
-
-int main() {
+int main(){
     vector<int> height = {1,8,6,2,5,4,8,3,7};
 
-    Solution sol;
-    int result = sol.maxArea(height);
-    cout << "Maximum water container area: " << result << endl;
-
+    Solution s;
+    int result = s.maxArea(height);
+    cout<<result<<endl;
     return 0;
 }
