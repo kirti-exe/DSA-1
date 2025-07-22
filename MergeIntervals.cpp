@@ -1,44 +1,33 @@
 #include<iostream>
 #include<vector>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
 
-class Solution {
-public:
-    vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        if(intervals.empty()) return {};
-
-        // Step 1: Sort intervals by start time
+class Solution{
+public: 
+    vector<vector<int>> merge(vector<vector<int>>& intervals){
+        int n = intervals.size();
         sort(intervals.begin(), intervals.end());
-
-        vector<vector<int>> merged;
-        merged.push_back(intervals[0]);
-
-        for(int i = 1; i < intervals.size(); i++) {
-            vector<int>& last = merged.back();
-
-            // Step 2: Check for overlap
-            if(intervals[i][0] <= last[1]) {
-                // Merge
-                last[1] = max(last[1], intervals[i][1]);
+        vector<vector<int>> ans;
+        for(int i=0; i<n; i++){
+            if(ans.empty() || intervals[i][0] > ans.back()[1]){
+                ans.push_back(intervals[i]);
             } else {
-                // No overlap, add new interval
-                merged.push_back(intervals[i]);
+                ans.back()[1] = max(ans.back()[1], intervals[i][1]);
             }
         }
-
-        return merged;
+        return ans;
     }
 };
 
-int main() {
+int main(){
     Solution sol;
-    vector<vector<int>> intervals = {{1,3},{2,6},{8,10},{15,18}};
+    vector<vector<int>> intervals = {{1,3},{2,6},{8,10},{15,18},{16,17}};
     vector<vector<int>> result = sol.merge(intervals);
 
-    cout << "Merged Intervals: ";
-    for(auto& interval : result) {
-        cout << "[" << interval[0] << "," << interval[1] << "] ";
-    }
+    cout<<"Merged Intervals: ";
+    for(auto& intervals : result){
+        cout<<"["<<intervals[0]<<","<<intervals[1]<<"]";
+    }cout<<endl;
     return 0;
 }
